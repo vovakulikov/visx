@@ -20,7 +20,8 @@ export default function Ticks<Scale extends AxisScale>({
   strokeWidth,
   tickLineProps,
 }: TicksRendererProps<Scale>) {
-  return ticks.map(({ value, index, from, to, formattedValue }) => {
+  return ticks.map(tick => {
+    const { value, index, from, to, formattedValue } = tick
     const tickLabelProps = allTickLabelProps[index] ?? {};
     const tickLabelFontSize = Math.max(
       10,
@@ -51,6 +52,8 @@ export default function Ticks<Scale extends AxisScale>({
             ...tickLabelProps,
             x: to.x,
             y: tickYCoord,
+            tick,
+            ticks,
             formattedValue,
           })
         ) : (

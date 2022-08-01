@@ -26,9 +26,11 @@ export type TickLabelProps<T> = (
   values: { value: T; index: number }[],
 ) => Partial<TextProps>;
 
-export type TickRendererProps = Partial<TextProps> & {
+export type TickRendererProps<Scale extends AxisScale> = Partial<TextProps> & {
   x: number;
   y: number;
+  tick: ComputedTick<Scale>;
+  ticks: ComputedTick<Scale>[]
   formattedValue: FormattedValue;
 };
 
@@ -83,7 +85,7 @@ export type CommonProps<Scale extends AxisScale> = {
   /** The class name applied to each tick group. */
   tickClassName?: string;
   /** Override the component used to render tick labels (instead of <Text /> from @visx/text). */
-  tickComponent?: (tickRendererProps: TickRendererProps) => React.ReactNode;
+  tickComponent?: (tickRendererProps: TickRendererProps<Scale>) => React.ReactNode;
   /** Override the component used to render all tick lines and labels. */
   ticksComponent?: (tickRendererProps: TicksRendererProps<Scale>) => React.ReactNode;
   /** A [d3 formatter](https://github.com/d3/d3-scale/blob/master/README.md#continuous_tickFormat) for the tick text. */
